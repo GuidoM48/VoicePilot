@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VoicePilot</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header>
+        <h1>VoicePilot</h1>
+        <p class="subtitle">Live-Diktat im Browser mit Whisper</p>
+      </header>
+
+      <section class="controls">
+        <label>
+          Sprache
+          <select id="languageSelect">
+            <option value="auto">Auto</option>
+            <option value="de">Deutsch</option>
+            <option value="en">Englisch</option>
+            <option value="fr">Französisch</option>
+            <option value="es">Spanisch</option>
+            <option value="it">Italienisch</option>
+          </select>
+        </label>
+
+        <label>
+          Modell
+          <select id="modelSelect"></select>
+        </label>
+      </section>
+
+      <button id="micButton" class="mic-button" type="button" aria-label="Diktat starten">🎤</button>
+
+      <p id="status" class="status">Bereit</p>
+
+      <section class="transcript" aria-live="polite">
+        <div id="finalText" class="final-text"></div>
+        <div id="partialText" class="partial-text"></div>
+      </section>
+
+      <section class="actions">
+        <button id="copyButton" type="button">Kopieren</button>
+        <button id="downloadButton" type="button">Download .txt</button>
+        <button id="clearButton" type="button">Löschen</button>
+      </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

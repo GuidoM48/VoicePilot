@@ -1,0 +1,134 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --accent: #2563eb;
+  --danger: #b91c1c;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app {
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: grid;
+  gap: 1rem;
+}
+
+h1 {
+  margin: 0;
+}
+
+.subtitle {
+  margin-top: 0.3rem;
+  color: var(--muted);
+}
+
+.controls,
+.actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+label {
+  display: grid;
+  gap: 0.35rem;
+  font-weight: 600;
+}
+
+select,
+button {
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.6rem;
+  border: 1px solid #d1d5db;
+  background: var(--card);
+  color: inherit;
+  font-size: 1rem;
+}
+
+.mic-button {
+  width: min(42vw, 130px);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  margin: 0 auto;
+  font-size: 2.2rem;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+}
+
+.mic-button.recording {
+  animation: pulse 1.4s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.45);
+  }
+  70% {
+    transform: scale(1.06);
+    box-shadow: 0 0 0 20px rgba(37, 99, 235, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+  }
+}
+
+.status {
+  text-align: center;
+  margin: 0;
+  font-weight: 600;
+}
+
+.status[data-type="ok"] {
+  color: #15803d;
+}
+
+.status[data-type="warn"] {
+  color: #b45309;
+}
+
+.status[data-type="error"] {
+  color: var(--danger);
+}
+
+.transcript {
+  min-height: 280px;
+  border-radius: 0.8rem;
+  border: 1px solid #d1d5db;
+  background: var(--card);
+  padding: 1rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.partial-text {
+  color: var(--muted);
+  font-style: italic;
+}
+
+@media (min-width: 768px) {
+  .controls,
+  .actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
