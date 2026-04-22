@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VoicePilot</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <h1>VoicePilot</h1>
+      <p>
+        Drücke <strong>R</strong>, um die Aufnahme zu starten/stoppen. Nach dem Stop wird der erkannte Text
+        automatisch je nach Modus verarbeitet.
+      </p>
+
+      <label for="mode">Modus</label>
+      <select id="mode">
+        <option value="dictation">1) 1:1 Mitschrift</option>
+        <option value="rewrite">2) Gesprochenes sauber formulieren</option>
+        <option value="positive">3) Negatives/Schimpfwörter positiv darstellen</option>
+      </select>
+
+      <div class="status" id="status">Bereit</div>
+
+      <section>
+        <h2>Original</h2>
+        <textarea id="rawText" rows="5" readonly></textarea>
+      </section>
+
+      <section>
+        <h2>Ausgabe</h2>
+        <textarea id="outputText" rows="6" readonly></textarea>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

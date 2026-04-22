@@ -1,0 +1,51 @@
+:root {
+  font-family: Arial, sans-serif;
+  color: #111;
+  background: #f7f7fb;
+}
+
+body {
+  margin: 0;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+
+.app {
+  width: min(800px, 92vw);
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+h1,
+h2 {
+  margin-top: 0;
+}
+
+label,
+select,
+.status,
+textarea,
+p {
+  display: block;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+select,
+textarea {
+  font: inherit;
+  padding: 10px;
+  border: 1px solid #c9c9d5;
+  border-radius: 8px;
+  box-sizing: border-box;
+}
+
+.status {
+  background: #eef3ff;
+  color: #18357a;
+  padding: 10px;
+  border-radius: 8px;
+}
