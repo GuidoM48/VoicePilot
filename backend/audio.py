@@ -81,8 +81,8 @@ class VADSegmenter:
         partial_interval_seconds: float,
     ) -> tuple[list[np.ndarray], np.ndarray | None]:
         """Consume PCM float audio and return finalized and partial segments."""
-        pcm_int16 = np.clip(audio_float32, -1.0, 1.0)
-        pcm_bytes = (pcm_int16 * 32767.0).astype(np.int16).tobytes()
+        clipped_audio = np.clip(audio_float32, -1.0, 1.0)
+        pcm_bytes = (clipped_audio * 32767.0).astype(np.int16).tobytes()
         self._incoming_bytes += pcm_bytes
 
         finalized_segments: list[np.ndarray] = []
