@@ -21,7 +21,7 @@ VoicePilot ist eine einfache Web-App mit 3 Sprach-Modi und 4 Agenten.
 Da es eine statische Web-App ist, reicht ein lokaler HTTP-Server:
 
 ```bash
-cd /home/runner/work/VoicePilot/VoicePilot
+cd <projekt-verzeichnis>
 python3 -m http.server 8000
 ```
 
@@ -30,3 +30,4 @@ Dann im Browser öffnen:
 `http://localhost:8000`
 
 > Hinweis: Für die Spracherkennung wird ein Browser mit Web Speech API benötigt (z. B. Chrome oder Edge).
+> Die Oberfläche ist aktuell bewusst auf Deutsch (`lang="de"`).

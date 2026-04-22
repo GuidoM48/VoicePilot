@@ -3,6 +3,10 @@ const statusEl = document.getElementById("status");
 const rawTextEl = document.getElementById("rawText");
 const outputTextEl = document.getElementById("outputText");
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
 class RecorderAgent {
   constructor(onTranscript, onStatus) {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -18,7 +22,7 @@ class RecorderAgent {
     this.onTranscript = onTranscript;
     this.onStatus = onStatus;
     this.isRecording = false;
-    this.buffer = "";
+    this.buffer = [];
 
     this.recognition = new SpeechRecognition();
     this.recognition.lang = "de-DE";
@@ -28,7 +32,7 @@ class RecorderAgent {
     this.recognition.onresult = (event) => {
       for (let i = event.resultIndex; i < event.results.length; i += 1) {
         if (event.results[i].isFinal) {
-          this.buffer += `${event.results[i][0].transcript.trim()} `;
+          this.buffer.push(event.results[i][0].transcript.trim());
         }
       }
     };
@@ -40,8 +44,8 @@ class RecorderAgent {
 
     this.recognition.onend = () => {
       if (!this.isRecording) {
-        const finalText = this.buffer.trim();
-        this.buffer = "";
+        const finalText = this.buffer.join(" ").trim();
+        this.buffer = [];
         if (finalText) {
           this.onTranscript(finalText);
         }
@@ -63,7 +67,7 @@ class RecorderAgent {
       return;
     }
 
-    this.buffer = "";
+    this.buffer = [];
     this.isRecording = true;
     this.recognition.start();
     this.onStatus("Aufnahme läuft... (nochmal R zum Stoppen)");
@@ -89,7 +93,7 @@ class RewriteAgent {
 
 class PositivityAgent {
   constructor() {
-    this.map = {
+    const replacements = {
       scheiße: "nicht optimal",
       scheisse: "nicht optimal",
       scheiß: "ungünstig",
@@ -101,13 +105,16 @@ class PositivityAgent {
       problem: "Chance zur Verbesserung",
       nervt: "fordert Geduld"
     };
+    this.patterns = Object.entries(replacements).map(([negative, positive]) => ({
+      pattern: new RegExp(`\\b${escapeRegExp(negative)}\\b`, "gi"),
+      positive
+    }));
     this.rewriteAgent = new RewriteAgent();
   }
 
   process(text) {
     let output = text;
-    Object.entries(this.map).forEach(([negative, positive]) => {
-      const pattern = new RegExp(`\\b${negative}\\b`, "gi");
+    this.patterns.forEach(({ pattern, positive }) => {
       output = output.replace(pattern, positive);
     });
     return this.rewriteAgent.process(output);
@@ -132,6 +139,9 @@ const recorder = new RecorderAgent(
 );
 
 document.addEventListener("keydown", (event) => {
+  if (event.target instanceof HTMLInputElement || event.target instanceof HTMLTextAreaElement) {
+    return;
+  }
   if (event.key.toLowerCase() === "r" && !event.repeat) {
     event.preventDefault();
     recorder.toggle();
